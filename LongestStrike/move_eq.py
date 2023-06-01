@@ -1,4 +1,4 @@
-from manim import *
+from manimlib import *
 
 class MovingFrameBox(Scene):
     def construct(self):

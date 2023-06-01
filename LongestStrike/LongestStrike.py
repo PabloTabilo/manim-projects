@@ -1,6 +1,6 @@
 from manim import *
 
-class SolveLongestStrike(Scene):
+class LongestStrike(Scene):
     def construct(self):
         title = Tex(r"F Longest Strike", font_size=25)
         def_inputs = Tex(r"Given an array of size n:  $a[n]$ and integer $k$",font_size=21)
@@ -55,7 +55,7 @@ class SolveLongestStrike(Scene):
         purt = Tex(r"if $\forall x \in [ l=11,r=11 ]$ \& $ frequencies(x) \ge k $",font_size=30)
         purt.next_to(exs,DOWN)
         self.play(Write(purt))
-        resf = Tex("Yes, $res = 11-11 = 0$", font_size=25, color="green")
+        resf = Tex("Yes, $res = 11-11 = 0$", font_size=25, color="#8AFF3F")
         resf.next_to(exs,UP) 
         self.play(Write(resf))
         self.wait()
@@ -67,10 +67,10 @@ class SolveLongestStrike(Scene):
         purt = Tex(r"if $\forall x \in [ l=11,r=12 ]$ \& $ frequencies(x) \ge k $",font_size=30)
         purt.next_to(exs,DOWN)
         self.play(Write(purt),FadeOut(resf))
-        resf=Tex("$res=11-11=0$",color="green")
+        resf=Tex("$res=11-11=0$",color="#8AFF3F")
         resf.next_to(exs,UP) 
         self.play(FadeIn(resf))
-        res = Tex("NO, $12$ exist only once", font_size=25, color="red")
+        res = Tex("NO, $12$ exist only once", font_size=25, color="#FF3F3F")
         res.next_to(purt,DOWN) 
         self.play(Write(res))
         self.wait()
@@ -83,7 +83,7 @@ class SolveLongestStrike(Scene):
         purt = Tex(r"if $\forall x \in [ l=13,r=14 ]$ \& $ frequencies(x) \ge k $",font_size=30)
         purt.next_to(exs,DOWN)
         self.play(Write(purt),FadeOut(resf))
-        resf = Tex("$res = 14-13 = 1$", font_size=25, color="green")
+        resf = Tex("$res = 14-13 = 1$", font_size=25, color="#8AFF3F")
         resf.next_to(exs,UP) 
         self.play(Write(resf))
         self.wait()
@@ -200,7 +200,6 @@ class SolveLongestStrike(Scene):
                     l=r=-1;
                 }
             }
-
         '''
         rendered_code = Code(code=code,tab_width=4, background="window",language="cpp",font_size=14)
         it1 = r"Case that's not a factible case"
@@ -360,7 +359,4 @@ class SolveLongestStrike(Scene):
         self.play(FadeIn(gr))
         self.wait()
         self.play(FadeOut(gr), FadeOut(title))
-
-
-
-
+        
