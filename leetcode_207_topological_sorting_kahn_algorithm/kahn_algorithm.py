@@ -202,11 +202,7 @@ class GraphScene(Scene):
             self.play(FadeOut(pointer_indegree), FadeOut(pointer_select), run_time=0.5)
             self.play(Create(nodes_objects[n]), FadeIn(indegree_objects[n]), run_time=0.5)
             
-            if(len(topological_sort)<=1):
-                topo_text = Text("Topological\nSorting:", font_size=12).move_to(box_pos + LEFT * box_width * 2 + topo_pos)
-                self.play(Write(topo_text),runtime=0.5)
-            vector_data = VectorData(box_width, box_pos + topo_pos, val = n, i = len(topological_sort)-1, color = GREEN)
-            self.play(FadeIn(vector_data),runtime=0.5)
+            
             
             # clean queue
             queue_pos_last, i, box_width = queue_objects[n].get_info_pos()
@@ -218,6 +214,12 @@ class GraphScene(Scene):
                 self.play(queue_objects[nn].animate.shift(LEFT * 1 * (box_width + 0.1)))
                 queue_objects[nn].reset_position(i)
                 self.add(queue_objects[nn])
+            
+            if(len(topological_sort)<=1):
+                topo_text = Text("Topological\nSorting:", font_size=12).move_to(box_pos + LEFT * box_width * 2 + topo_pos)
+                self.play(Write(topo_text),runtime=0.5)
+            vector_data = VectorData(box_width, box_pos + topo_pos, val = n, i = len(topological_sort)-1, color = GREEN)
+            self.play(FadeIn(vector_data),runtime=0.5)
                 
         self.wait(5)
         
