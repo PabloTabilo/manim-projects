@@ -1,7 +1,5 @@
 from manim import *
 
-import numpy as np
-
 class Node(VGroup):
     def __init__(self, radius : float, color : str, value : int, position : list, *vmobjects, **kwargs):
         super().__init__(*vmobjects, **kwargs)
@@ -20,17 +18,15 @@ class Node(VGroup):
         self.position = position
         self.move_to(self.position)
 
-class Tree(VGroup):
+class BinaryLiftingTable(VGroup):
     def __init__(self, n : int, *vmobjects, **kwargs):
         super().__init__(*vmobjects, **kwargs)
+        self.log = 0
         self.n = n
         
-    def connection(self, node_start : Node, node_end : Node):
-        pass
-
-class BinaryLiftingTable(VGroup):
-    def __init__(self, *vmobjects, **kwargs):
-        super().__init__(*vmobjects, **kwargs)
+        # number of columns
+        while((1 << self.log) < n):
+            self.log+=1
 
 class BinaryLiftingScene(Scene):
     def construct(self):
@@ -81,13 +77,21 @@ class BinaryLiftingScene(Scene):
         edges_objects = {i : {} for i in range(len(connections))}
         
         for i, j in connections:
+            # This part is only for aesthetics
+            # The line start from point x1,y1 + GAP
+            # to x2,y2 + GAP
+            # where x1, y1 is the center of the start object
+            # and x2, y2 is the center of the end object
+            # So, without this part the line start from x1,y1 to x2,y2
+            # that's the case where GAP = 0. But this is not very
+            # comfortable to see, and for that reason
+            # we add this part on the code
             p1 = nodes[i].get_center()
             p2 = nodes[j].get_center()
             m = float(p2[0]-p1[0]) / float(p2[1]-p1[1])
             x1,y1 = p1[0],p1[1]
             x2,y2 = p2[0],p2[1]
             r = nodes[i].radius * 0.2
-            # x1 izq x2
             if(x1 < x2):
                 x1+=r
                 y1 = (x1 - p1[0])*m + p1[1]
@@ -105,8 +109,6 @@ class BinaryLiftingScene(Scene):
                 else:
                     y1+=r
                     y2 -= r
-            print("x1,y1 =",x1,y1)
-            print("x2,y2 =",x2,y2)
             arr = Line(
                 start=(x1,y1,0), 
                 end=(x2,y2,0), 
